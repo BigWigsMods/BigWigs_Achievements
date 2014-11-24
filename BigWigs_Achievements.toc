@@ -1,0 +1,12 @@
+## Interface: 60000
+
+## Title: BigWigs: Achievements
+## Notes: Achievement reminders for boss encounters.
+## Author: Stanzilla
+
+## X-BigWigs-LoadOn-ZoneId: 877, 871, 874, 885, 867, 919, 964, 969, 984, 987, 989, 993, 995, 1008
+## Dependencies: BigWigs
+## LoadOnDemand: 1
+
+main.lua
+
