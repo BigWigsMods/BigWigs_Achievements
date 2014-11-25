@@ -5,11 +5,6 @@ local name, addon = ...
 -- Locals
 --
 
--- id, name, points, completed, month, day, year, description, flags, icon, rewardText, isGuildAch, wasEarnedByMe, earnedBy = GetAchievementInfo(category, index) or GetAchievementInfo(id)
--- link = GetAchievementLink(id)
-
-
-
 local journalToAchievement = {
 	-- Auchindoun
 	[1186] = 9023, -- Nyami
@@ -38,7 +33,7 @@ local journalToAchievement = {
 	[1140] = 9025, -- Bonemaw	
 	[1160] = 9026, -- Ner'zul
 	-- Grimrail
-	[1163] = 9007, --Nitrogg
+	[1163] = 9007, -- Nitrogg
 	[1138] = 9024, -- Rocketspark
 	-- Everbloom
 	[1214] = 9017, -- Witherbark
@@ -69,6 +64,4 @@ local function handler(module)
 	end 
 end
 
-
 BigWigsLoader.RegisterMessage(addon, "BigWigs_OnBossEnable", handler) 
-
