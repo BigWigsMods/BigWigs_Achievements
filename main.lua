@@ -8,58 +8,42 @@ local name, addon = ...
 -- id, name, points, completed, month, day, year, description, flags, icon, rewardText, isGuildAch, wasEarnedByMe, earnedBy = GetAchievementInfo(category, index) or GetAchievementInfo(id)
 -- link = GetAchievementLink(id)
 
--- Slag Mines
---[964] = {
---	8993 = true, -- Magmolatus: A Gift of Earth and Fire
---	9056 = true, -- Ragewing: Bridge Over Troubled Fire
---	9005 = true, -- Trash: Come With Me If You Want To Live
---	9008 = true, -- Gug'rokk
---}  
----- Auchindoun
---[984] = { 
---	-- Nyami: ...They All Fall Down 9023
---	-- Azzakel 9551
---	-- Teron 9552
---}	
----- UBRS
---[995] = { 
---	-- Zaela 9057
---	-- Trash 9058
---	-- Gorashan 9045
---}
----- Iron Docks
---[987] = { 
---	-- Trash (well, fk) 9081
---	-- Nok'gar 9083
---	-- Skulloc 9082
---}
----- Skyreach
---[989] = { 
---	-- Rukhran 9035
---	-- Endboss+ 9034
---	-- Viryx 9036
---	-- Ranjit 9033
---}
-----Burial Grounds
---[969] = { 
---	-- Bonemaw 9025
---	-- Nerzul 9026
---	-- Sadana Bloodfury 9018
---}
----- Grimrail
---[993] = { 
---	-- nitrogg 9007
---	-- Rocketspark 9024
---}
----- Everbloom
---[1008] = {
---	-- Sol 9493
---	-- Witherbark 9017
---	-- Yalnu 9223
---} 
+
 
 local journalToAchievement = {
+	-- Auchindoun
+	[1186] = 9023, -- Nyami
 	[1216] = 9551, -- Azzakel
+	[1225] = 9552, -- Teron
+	-- Slag Mines
+	[893] = 8993, -- Magmolatus: A Gift of Earth and Fire
+	[888] = 9005, -- Trash, Activate on Crushto: Come With Me If You Want To Live
+	[889] = 9008, -- Gug'rokk
+	-- UBRS
+	[1226] = 9045, -- Gorashan
+	[1227] = 9058, -- Trash, Activate on Kyrak: Leeeeeroy!
+	[1229] = 9056, -- Ragewing: Bridge Over Troubled Fire
+	[1234] = 9057, -- Zaela
+	-- Iron Docks
+	[1235] = 9083, -- Nok'gar 
+	[1236] = 9081, -- Trash, Activate on Enforcers
+	[1238] = 9082, -- Skulloc 
+	-- Skyreach
+	[965] = 9033, -- Ranjit
+	[967] = 9035, -- Rukhran
+	[968] = 9034, -- Viryx
+	[968] = 9036, -- Viryx	
+	--Burial Grounds
+	[1139] = 9018, -- Sadana Bloodfury
+	[1140] = 9025, -- Bonemaw	
+	[1160] = 9026, -- Ner'zul
+	-- Grimrail
+	[1163] = 9007, --Nitrogg
+	[1138] = 9024, -- Rocketspark
+	-- Everbloom
+	[1214] = 9017, -- Witherbark
+	[1208] = 9493, -- Sol
+	[1210] = 9223, -- Yalnu
 }
 
 --------------------------------------------------------------------------------
@@ -80,7 +64,7 @@ local function handler(module)
 	local achievId = module.journalId and journalToAchievement[module.journalId]
 	if achievId then
 		local _, name = GetAchievementInfo(achievId)
-		print("|cFF33FF99BigWigs_Achievements:|r ", L.achievement_hint:format(name, module.displayName))
+		print("|cFF33FF99BigWigs:|r ", L.achievement_hint:format(name, module.displayName))
 		--print breakdown?
 	end 
 end
