@@ -59,7 +59,7 @@ local function handler(event, module)
 	local achievId = module.journalId and journalToAchievement[module.journalId]
 	if achievId then
 		local link = GetAchievementLink(achievId)
-		print("|cFF33FF99BigWigs:|r ", L.achievement_hint:format(name, module.displayName))
+		print("|cFF33FF99BigWigs:|r", L.achievement_hint:format(link, module.displayName))
 		--print breakdown?
 	end 
 end
