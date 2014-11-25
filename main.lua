@@ -55,10 +55,10 @@ local CL = LibStub("AceLocale-3.0"):GetLocale("Big Wigs: Common")
 -- Event Handlers
 --
 
-local function handler(module)
+local function handler(event, module)
 	local achievId = module.journalId and journalToAchievement[module.journalId]
 	if achievId then
-		local _, name = GetAchievementInfo(achievId)
+		local link = GetAchievementLink(achievId)
 		print("|cFF33FF99BigWigs:|r ", L.achievement_hint:format(name, module.displayName))
 		--print breakdown?
 	end 
