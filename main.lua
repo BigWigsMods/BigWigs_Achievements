@@ -26,8 +26,7 @@ local journalToAchievement = {
 	-- Skyreach
 	[965] = 9033, -- Ranjit
 	[967] = 9035, -- Rukhran
-	[968] = 9034, -- Viryx
-	[968] = 9036, -- Viryx	
+	[968] = {9034, 9036}, -- Viryx	
 	--Burial Grounds
 	[1139] = 9018, -- Sadana Bloodfury
 	[1140] = 9025, -- Bonemaw	
@@ -46,7 +45,8 @@ local journalToAchievement = {
 --
 
 addon.L = {
-	achievement_hint = "I noticed that you are missing the achievement '%s' for the boss you are about to fight, %s."
+	achievement_hint = "I noticed that you are missing the achievement '%s' for the boss you are about to fight, %s.",
+	achievement_multi = "I noticed that you are missing a few achievements for the boss you are about to fight, %s:"
 }
 local L = addon.L
 local CL = LibStub("AceLocale-3.0"):GetLocale("Big Wigs: Common")
@@ -56,11 +56,19 @@ local CL = LibStub("AceLocale-3.0"):GetLocale("Big Wigs: Common")
 --
 
 local function handler(event, module)
-	local achievId = module.journalId and journalToAchievement[module.journalId]
+	local achievId = module.journalId and journalToAchievement[module.journalId]	
 	if achievId then
-		local link = GetAchievementLink(achievId)
-		print("|cFF33FF99BigWigs:|r", L.achievement_hint:format(link, module.displayName))
-		--print breakdown?
+		if type(achievId) == "table" then
+			print("|cFF33FF99BigWigs:|r", L.achievement_multi:format(module.displayName))
+			for key, value in pairs(achievId) do
+				local link = GetAchievementLink(value)
+				print(link) 
+			end
+		else
+			local link = GetAchievementLink(achievId)
+			print("|cFF33FF99BigWigs:|r", L.achievement_hint:format(link, module.displayName))
+			--print breakdown?
+		end
 	end 
 end
 
