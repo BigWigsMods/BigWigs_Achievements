@@ -1,6 +1,6 @@
 
 local name, addon = ...
-local isHeroic = false
+local isCompleted = false
 
 --------------------------------------------------------------------------------
 -- Locals
@@ -55,31 +55,25 @@ local CL = LibStub("AceLocale-3.0"):GetLocale("Big Wigs: Common")
 --------------------------------------------------------------------------------
 -- Event Handlers
 --
--- id, name, points, completed, month, day, year, description, flags, icon, rewardText, isGuildAch, wasEarnedByMe, earnedBy = GetAchievementInfo(category, index) or GetAchievementInfo(id)
 
 local function handler(event, module)
 	local achievId = journalToAchievement[module.journalId]
-	local isCompleted
-	local _, _, difficulty = GetInstanceInfo()
-    if difficulty == 2 then
-    	isHeroic = true
-    end
-	if not isHeroic and achievId then
+	local _, _, difficulty = GetInstanceInfo()    
+	if difficulty == 2 and achievId then
 		if type(achievId) == "table" then
 			local links = ""
-			print("|cFF33FF99BigWigs:|r", L.achievement_multi:format(module.displayName))
 			for key, value in pairs(achievId) do
 				_, _, _, isCompleted = GetAchievementInfo(value)
-				if isCompleted then
-					links = links .. GetAchievementLink(value)
+				if not isCompleted then
+					links = links .. " " .. GetAchievementLink(value) 
 				end	
 			end
-			if links ~= "" then 
-				print(links) 
+			if links ~= "" then
+				print("|cFF33FF99BigWigs:|r", L.achievement_multi:format(module.displayName) .. links)
 			end
 		else
 			_, _, _, isCompleted = GetAchievementInfo(achievId)
-			if isCompleted then
+			if not isCompleted then
 				local link = GetAchievementLink(achievId)
 				print("|cFF33FF99BigWigs:|r", L.achievement_hint:format(link, module.displayName))
 			end
