@@ -27,7 +27,7 @@ local journalToAchievement = {
 	-- Skyreach
 	[965] = 9033, -- Ranjit
 	[967] = 9035, -- Rukhran
-	[968] = {9034, 9036}, -- Viryx	
+	[968] = {9034, 9036}, -- High Sage Viryx	
 	--Burial Grounds
 	[1139] = 9018, -- Sadana Bloodfury
 	[1140] = 9025, -- Bonemaw	
@@ -69,7 +69,7 @@ local function handler(event, module)
 			local links = ""
 			print("|cFF33FF99BigWigs:|r", L.achievement_multi:format(module.displayName))
 			for key, value in pairs(achievId) do
-				local _, _, _, isCompleted = GetAchievementInfo(value)
+				_, _, _, isCompleted = GetAchievementInfo(value)
 				if isCompleted then
 					links = links .. GetAchievementLink(value)
 				end	
@@ -78,8 +78,11 @@ local function handler(event, module)
 				print(links) 
 			end
 		else
-			local link = GetAchievementLink(achievId)
-			print("|cFF33FF99BigWigs:|r", L.achievement_hint:format(link, module.displayName))
+			_, _, _, isCompleted = GetAchievementInfo(achievId)
+			if isCompleted then
+				local link = GetAchievementLink(achievId)
+				print("|cFF33FF99BigWigs:|r", L.achievement_hint:format(link, module.displayName))
+			end
 		end
 	end 
 end
