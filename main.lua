@@ -1,5 +1,3 @@
--- TODO: Disable in CM
-
 
 local name, addon = ...
 local isHeroic = false
@@ -61,12 +59,12 @@ local CL = LibStub("AceLocale-3.0"):GetLocale("Big Wigs: Common")
 
 local function handler(event, module)
 	local achievId = module.journalId and journalToAchievement[module.journalId]
-	local _, _, _, completed = GetAchievementInfo(achievId)
+	local _, _, _, isCompleted = GetAchievementInfo(achievId)
 	local _, _, difficulty = GetInstanceInfo()
     if difficulty == 2 then
     	isHeroic = true
     end
-	if not (completed and isHeroic) and achievId then
+	if not isCompleted and not isHeroic and achievId then
 		if type(achievId) == "table" then
 			print("|cFF33FF99BigWigs:|r", L.achievement_multi:format(module.displayName))
 			for key, value in pairs(achievId) do
