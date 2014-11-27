@@ -46,8 +46,8 @@ local journalToAchievement = {
 --
 
 addon.L = {
-	achievement_hint = "I noticed that you are missing the achievement '%s' for the boss you are about to fight, %s.",
-	achievement_multi = "I noticed that you are missing a few achievements for the boss you are about to fight, %s:"
+	achievement_hint = "We noticed that you are missing the achievement '%s' for the boss you are about to fight, %s.",
+	achievement_multi = "We noticed that you are missing a few achievements for the boss you are about to fight, %s:"
 }
 local L = addon.L
 local CL = LibStub("AceLocale-3.0"):GetLocale("Big Wigs: Common")
@@ -58,23 +58,28 @@ local CL = LibStub("AceLocale-3.0"):GetLocale("Big Wigs: Common")
 -- id, name, points, completed, month, day, year, description, flags, icon, rewardText, isGuildAch, wasEarnedByMe, earnedBy = GetAchievementInfo(category, index) or GetAchievementInfo(id)
 
 local function handler(event, module)
-	local achievId = module.journalId and journalToAchievement[module.journalId]
-	local _, _, _, isCompleted = GetAchievementInfo(achievId)
+	local achievId = journalToAchievement[module.journalId]
+	local isCompleted
 	local _, _, difficulty = GetInstanceInfo()
     if difficulty == 2 then
     	isHeroic = true
     end
-	if not isCompleted and not isHeroic and achievId then
+	if not isHeroic and achievId then
 		if type(achievId) == "table" then
+			local links = ""
 			print("|cFF33FF99BigWigs:|r", L.achievement_multi:format(module.displayName))
 			for key, value in pairs(achievId) do
-				local link = GetAchievementLink(value)
-				print(link) 
+				local _, _, _, isCompleted = GetAchievementInfo(value)
+				if isCompleted then
+					links = links .. GetAchievementLink(value)
+				end	
+			end
+			if links ~= "" then 
+				print(links) 
 			end
 		else
 			local link = GetAchievementLink(achievId)
 			print("|cFF33FF99BigWigs:|r", L.achievement_hint:format(link, module.displayName))
-			--print breakdown?
 		end
 	end 
 end
