@@ -1,7 +1,6 @@
 
 local name, addon = ...
 local isCompleted = false
-local legion_700 = select(4, GetBuildInfo()) >= 70000
 
 --------------------------------------------------------------------------------
 -- Locals
@@ -126,7 +125,7 @@ addon.L = {
 	achievement_multi = "We noticed that you are missing a few achievements for the boss you are about to fight, %s:"
 }
 local L = addon.L
-local CL = LibStub("AceLocale-3.0"):GetLocale("Big Wigs: Common")
+local CL = LibStub("AceLocale-3.0"):GetLocale("BigWigs: Common")
 
 --------------------------------------------------------------------------------
 -- Event Handlers
@@ -135,7 +134,7 @@ local CL = LibStub("AceLocale-3.0"):GetLocale("Big Wigs: Common")
 local function handler(event, module)
 	local achievId = journalToAchievement[module.journalId]
 	local _, _, difficulty = GetInstanceInfo()    
-	if difficulty == 2 and legion_700 or difficulty == 23 and achievId then
+	if difficulty == 2 or difficulty == 23 and achievId then
 		if type(achievId) == "table" then
 			local links = ""
 			for key, value in pairs(achievId) do
